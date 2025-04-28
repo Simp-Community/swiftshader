@@ -22,7 +22,7 @@ jobs:
           cd swiftshader
           cd build
           cmake ..
-          cmake --build . --parallel 4
+          cmake --build .
           ./vk-unittests
 
       - name: Upload build artifacts
