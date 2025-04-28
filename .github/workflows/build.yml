@@ -11,8 +11,6 @@ jobs:
       - name: Clone SwiftShader repository
         run: |
           git clone --depth 1 https://github.com/google/swiftshader.git
-          cd swiftshader
-          git submodule update --init
 
       - name: Set up environment
         run: |
