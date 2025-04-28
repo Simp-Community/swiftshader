@@ -8,12 +8,10 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
-      - name: Checkout SwiftShader repository
-        uses: actions/checkout@v3
-        with:
-          repository: google/swiftshader
-          ref: main
-          fetch-depth: 1
+      - name: Clone SwiftShader repository
+        run: |
+          git clone --depth 1 https://github.com/google/swiftshader.git swiftshader-src
+          ls -al
 
       - name: Set up environment
         run: |
@@ -24,7 +22,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ..
+          cmake ../swiftshader-src
           cmake --build . --parallel
           ./vk-unittests
 
