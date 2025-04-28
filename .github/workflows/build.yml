@@ -10,8 +10,7 @@ jobs:
     steps:
       - name: Clone SwiftShader repository
         run: |
-          git clone --depth 1 https://github.com/google/swiftshader.git swiftshader-src
-          ls -al
+          git clone --depth 1 https://github.com/google/swiftshader.git
 
       - name: Set up environment
         run: |
@@ -20,9 +19,10 @@ jobs:
 
       - name: Build SwiftShader
         run: |
+          cd swiftshader
           mkdir build
           cd build
-          cmake ../swiftshader-src
+          cmake ..
           cmake --build . --parallel
           ./vk-unittests
 
@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: swiftshader-build
-          path: ./build
+          path: ./swiftshader/build
