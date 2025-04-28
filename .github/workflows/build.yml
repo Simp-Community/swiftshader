@@ -1,0 +1,40 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout SwiftShader repository
+        uses: actions/checkout@v3
+        with:
+          repository: google/swiftshader
+          ref: main
+          fetch-depth: 1
+
+      - name: Set up Debian 12 environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake git
+
+      - name: Build SwiftShader
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . --parallel
+          ./vk-unittests
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: swiftshader-build
+          path: ./build
