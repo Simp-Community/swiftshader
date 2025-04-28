@@ -15,7 +15,7 @@ jobs:
           ref: main
           fetch-depth: 1
 
-      - name: Set up Debian 12 environment
+      - name: Set up environment
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential cmake git
@@ -29,7 +29,7 @@ jobs:
           ./vk-unittests
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: swiftshader-build
           path: ./build
